@@ -116,6 +116,28 @@ Bash:
 ANTHROPIC_AUTH_TOKEN="freecc" ANTHROPIC_BASE_URL="http://localhost:8082" CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1 claude
 ```
 
+## Docker Deployment
+
+For containerized deployment, see [docker/DOCKER.md](docker/DOCKER.md) for complete instructions.
+
+Quick start:
+
+```bash
+# 1. Configure environment
+cp .env.example .env
+# Edit .env with your provider settings
+
+# 2. Build and run
+cd docker
+docker-compose up -d
+
+# 3. Connect Claude Code
+ANTHROPIC_AUTH_TOKEN="freecc" \
+ANTHROPIC_BASE_URL="http://localhost:8082" \
+CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1 \
+claude
+```
+
 ## Choose A Provider
 
 Model values use this format:
