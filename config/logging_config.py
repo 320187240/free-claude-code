@@ -106,6 +106,14 @@ def configure_logging(
         rotation="50 MB",
     )
 
+    # Add console sink for Docker: human-readable format to stdout
+    logger.add(
+        lambda msg: print(msg, end=""),
+        level="DEBUG",
+        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>\n",
+        colorize=False,
+    )
+
     # Intercept stdlib logging: route all root logger output to loguru
     intercept = InterceptHandler()
     logging.root.handlers = [intercept]

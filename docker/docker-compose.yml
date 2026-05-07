@@ -8,13 +8,11 @@ services:
     container_name: free-claude-code
     ports:
       - "8082:8082"
-    env_file:
-      - ../.env
     restart: unless-stopped
     volumes:
       # 可选：挂载工作空间目录（用于 Discord/Telegram bot）
       - ../agent_workspace:/app/agent_workspace
     environment:
-      # 这些可以在 .env 文件中配置，这里仅作示例
-      - ANTHROPIC_AUTH_TOKEN=${ANTHROPIC_AUTH_TOKEN:-freecc}
-      - MODEL=${MODEL:-nvidia_nim/z-ai/glm4.7}
+      - NVIDIA_NIM_API_KEY=sk-2ef0c28a5d484db0a59ec7ffa7251d45
+      - MODEL=qwen/qwen-max-latest
+      - ANTHROPIC_AUTH_TOKEN=freecc
