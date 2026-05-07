@@ -23,9 +23,9 @@ COPY core ./core
 COPY messaging ./messaging
 COPY providers ./providers
 
-# 下载 Python 3.14 并安装依赖（所有下载都在构建时完成）
-RUN uv python install 3.14 && \
-    uv sync --frozen --no-dev --python /root/.local/share/uv/python/cpython-3.14.0a3-linux-aarch64-gnu/bin/python3
+# 下载 Python 3.13 并安装依赖
+RUN uv python install 3.13 && \
+    uv sync --no-dev
 
 # 第二阶段：创建最小运行镜像
 FROM debian:bookworm-slim
@@ -42,8 +42,8 @@ COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
 COPY --from=builder /root/.local/share/uv/python /root/.local/share/uv/python
 COPY --from=builder /app /app
 
-# 设置 PATH 包含 Python 3.14
-ENV PATH="/root/.local/share/uv/python/cpython-3.14.0a3-linux-aarch64-gnu/bin:$PATH"
+# 设置 PATH 包含 Python 3.13
+ENV PATH="/root/.local/share/uv/python/cpython-3.13.1-linux-aarch64-gnu/bin:$PATH"
 
 # 暴露端口
 EXPOSE 8082

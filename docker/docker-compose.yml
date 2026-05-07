@@ -13,6 +13,28 @@ services:
       # 可选：挂载工作空间目录（用于 Discord/Telegram bot）
       - ../agent_workspace:/app/agent_workspace
     environment:
-      - NVIDIA_NIM_API_KEY=sk-2ef0c28a5d484db0a59ec7ffa7251d45
-      - MODEL=qwen/qwen-max-latest
-      - ANTHROPIC_AUTH_TOKEN=freecc
+      # NVIDIA NIM API Key (从 https://build.nvidia.com/settings/api-keys 获取)
+      - NVIDIA_NIM_API_KEY=${NVIDIA_NIM_API_KEY:-your_nvidia_nim_api_key_here}
+
+      # 默认模型配置 (格式: provider/model_name)
+      # 支持的 providers: nvidia_nim, open_router, deepseek, lmstudio, llamacpp, ollama, kimi
+      - MODEL=${MODEL:-nvidia_nim/meta/llama-3.1-405b-instruct}
+
+      # 可选：为不同的 Claude 模型指定不同的后端
+      # - MODEL_OPUS=nvidia_nim/meta/llama-3.1-405b-instruct
+      # - MODEL_SONNET=nvidia_nim/meta/llama-3.1-70b-instruct
+      # - MODEL_HAIKU=nvidia_nim/meta/llama-3.1-8b-instruct
+
+      # 其他 Provider API Keys (按需配置)
+      # - OPENROUTER_API_KEY=your_openrouter_key
+      # - DEEPSEEK_API_KEY=your_deepseek_key
+      # - KIMI_API_KEY=your_kimi_key
+
+      # 可选：API 认证 token
+      - ANTHROPIC_AUTH_TOKEN=${ANTHROPIC_AUTH_TOKEN:-}
+
+      # 可选：消息平台配置 (telegram/discord/none)
+      # - MESSAGING_PLATFORM=discord
+      # - DISCORD_BOT_TOKEN=your_discord_token
+      # - ALLOWED_DISCORD_CHANNELS=channel_id1,channel_id2
+
