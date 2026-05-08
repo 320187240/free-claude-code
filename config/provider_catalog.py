@@ -14,6 +14,7 @@ TransportType = Literal["openai_chat", "anthropic_messages"]
 # Default upstream base URLs (also re-exported via :mod:`providers.defaults`)
 NVIDIA_NIM_DEFAULT_BASE = "https://integrate.api.nvidia.com/v1"
 KIMI_DEFAULT_BASE = "https://api.moonshot.ai/v1"
+DASHSCOPE_DEFAULT_BASE = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 # DeepSeek Anthropic-compatible Messages API (not OpenAI ``/v1`` chat completions).
 DEEPSEEK_ANTHROPIC_DEFAULT_BASE = "https://api.deepseek.com/anthropic"
 # Historical export name: DeepSeek upstream is the native Anthropic path above.
@@ -111,6 +112,16 @@ PROVIDER_CATALOG: dict[str, ProviderDescriptor] = {
         credential_attr="kimi_api_key",
         default_base_url=KIMI_DEFAULT_BASE,
         proxy_attr="kimi_proxy",
+        capabilities=("chat", "streaming", "tools"),
+    ),
+    "dashscope": ProviderDescriptor(
+        provider_id="dashscope",
+        transport_type="openai_chat",
+        credential_env="DASHSCOPE_API_KEY",
+        credential_url="https://dashscope.console.aliyun.com/apiKey",
+        credential_attr="dashscope_api_key",
+        default_base_url=DASHSCOPE_DEFAULT_BASE,
+        proxy_attr="dashscope_proxy",
         capabilities=("chat", "streaming", "tools"),
     ),
 }

@@ -14,3 +14,4 @@ llama_cache
 .smoke-results
 .idea
 free-claude-code.iml
+docker/env/*.whl

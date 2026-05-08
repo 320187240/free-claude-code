@@ -9,21 +9,24 @@ services:
     ports:
       - "8082:8082"
     restart: unless-stopped
-    volumes:
+      # volumes:
       # 可选：挂载工作空间目录（用于 Discord/Telegram bot）
-      - ../agent_workspace:/app/agent_workspace
+      # - ../agent_workspace:/app/agent_workspace
     environment:
       # NVIDIA NIM API Key (从 https://build.nvidia.com/settings/api-keys 获取)
-      - NVIDIA_NIM_API_KEY=${NVIDIA_NIM_API_KEY:-your_nvidia_nim_api_key_here}
+      - NVIDIA_NIM_API_KEY=${NVIDIA_NIM_API_KEY:-}
+
+      # DashScope (千问) API Key (从 https://dashscope.console.aliyun.com/apiKey 获取)
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY:-}
 
       # 默认模型配置 (格式: provider/model_name)
-      # 支持的 providers: nvidia_nim, open_router, deepseek, lmstudio, llamacpp, ollama, kimi
-      - MODEL=${MODEL:-nvidia_nim/meta/llama-3.1-405b-instruct}
+      # 支持的 providers: nvidia_nim, open_router, deepseek, lmstudio, llamacpp, ollama, kimi, dashscope
+      - MODEL=${MODEL:-dashscope/qwen-max}
 
       # 可选：为不同的 Claude 模型指定不同的后端
-      # - MODEL_OPUS=nvidia_nim/meta/llama-3.1-405b-instruct
-      # - MODEL_SONNET=nvidia_nim/meta/llama-3.1-70b-instruct
-      # - MODEL_HAIKU=nvidia_nim/meta/llama-3.1-8b-instruct
+      # - MODEL_OPUS=dashscope/qwen-max
+      # - MODEL_SONNET=dashscope/qwen-plus
+      # - MODEL_HAIKU=dashscope/qwen-turbo
 
       # 其他 Provider API Keys (按需配置)
       # - OPENROUTER_API_KEY=your_openrouter_key
